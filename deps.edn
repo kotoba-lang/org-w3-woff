@@ -1,5 +1,5 @@
 {:paths ["src" "resources"]
- :deps {io.github.kotoba-lang/org-ietf-deflate {:git/sha "d97242c7c4357f600987795e8e8cc11f3f851168"}
+ :deps {io.github.kotoba-lang/org-ietf-deflate {:git/sha "430d754313e9082114ec00554e0b6770d9d318c5"}
         io.github.kotoba-lang/org-iso-opentype {:git/sha "250e2fc9f5335d705ddc0901cdf63e655c379531"}}
  :aliases {:test {:extra-paths ["test"]
                   :extra-deps {io.github.cognitect-labs/test-runner
