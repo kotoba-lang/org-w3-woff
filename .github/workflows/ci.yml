@@ -41,5 +41,44 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-jdk${{ matrix.java }}-clj-
 
+      # The WOFF2 conformance suite drives the reference encoder/decoder and
+      # sweeps whatever real fonts the machine has. Without these it skips
+      # loudly, so install both the tools and a large font with composite
+      # glyphs (DejaVuSans is ~750 KB, which also covers the >200 KB case).
+      - name: Install the reference woff2 tools and a large font
+        run: sudo apt-get update && sudo apt-get install -y woff2 fonts-dejavu-core
+
       - name: Run tests
         run: clojure -M:test
+
+      - name: Lint
+        run: clojure -M:lint
+
+  cljs:
+    name: nbb run-tests.cljs (ClojureScript)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install nbb
+        run: npm install -g nbb@1.4.210
+
+      # nbb has no dependency resolver, so nbb.edn reads the dependencies from
+      # sibling checkouts. Pin each one to the SHA deps.edn already resolves.
+      - name: Fetch the pinned dependencies as sibling checkouts
+        run: |
+          set -eu
+          for repo in org-ietf-deflate org-iso-opentype org-ietf-brotli; do
+            sha=$(grep "$repo " deps.edn | grep -o '[0-9a-f]\{40\}' | head -1)
+            test -n "$sha"
+            git clone --quiet "https://github.com/kotoba-lang/$repo.git" "../$repo"
+            git -C "../$repo" checkout --quiet "$sha"
+            echo "$repo @ $sha"
+          done
+
+      - name: Run the portable suite on ClojureScript
+        run: nbb run-tests.cljs
