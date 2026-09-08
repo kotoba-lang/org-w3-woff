@@ -22,7 +22,7 @@
    Usage:
      curl -sL https://www.w3.org/TR/WOFF2/ -o /tmp/woff2.html
      nbb tools/extract_woff2_tables.cljs /tmp/woff2.html"
-  (:require [clojure.string :as str]))
+  (:require [kotoba.lang.text :as str]))
 
 (def fs (js/require "node:fs"))
 
