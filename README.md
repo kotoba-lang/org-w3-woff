@@ -64,25 +64,25 @@ private data blocks (present in the header, not extracted), and writing WOFF2.
 ## Where the WOFF2 tables come from
 
 The 63 known table tags (§4.1) and the 128-row triplet encoding (§5.2) are
-**generated from the specification** by `tools/extract_woff2_tables.cljs`:
+**generated from the specification** by `tools/extract_woff2_tables.cljk`:
 
 ```sh
 curl -sL https://www.w3.org/TR/WOFF2/ -o /tmp/woff2.html
-nbb tools/extract_woff2_tables.cljs /tmp/woff2.html
+nbb tools/extract_woff2_tables.cljk /tmp/woff2.html
 ```
 
 The spec publishes no checksums, so the generator verifies structurally instead:
 exactly 63 tags, and every triplet row satisfying
 `byteCount = 1 + (xBits + yBits) / 8`. That invariant is what catches a mis-parse
 of the spec's rowspan-heavy HTML, where most rows inherit their byte count from
-the row above. `src/woff/woff2_data.cljc` is generated — do not hand-edit.
+the row above. `src/woff/woff2_data.cljk` is generated — do not hand-edit.
 
 ## Test
 
 ```sh
 clojure -M:test          # JVM: portable suites + conformance against the woff2 tools
 clojure -M:local:test    # …against sibling checkouts
-nbb run-tests.cljs       # ClojureScript: the same WOFF2 decode, recorded fixture
+nbb run-tests.cljk       # ClojureScript: the same WOFF2 decode, recorded fixture
 clojure -M:lint
 ```
 

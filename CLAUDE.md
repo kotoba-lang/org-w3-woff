@@ -7,14 +7,14 @@ compressed block), `org-iso-opentype` (metadata parse).
 ## Invariants
 
 - **No host codec, no font library.** The `woff2_compress`/`woff2_decompress`
-  binaries appear in `test/woff/woff2_oracle_test.clj` only, as an oracle.
-- **`src/woff/woff2_data.cljc` is generated.** Never hand-edit it; regenerate
-  with `tools/extract_woff2_tables.cljs`, which refuses to write unless the tag
+  binaries appear in `test/woff/woff2_oracle_test.cljk` only, as an oracle.
+- **`src/woff/woff2_data.cljk` is generated.** Never hand-edit it; regenerate
+  with `tools/extract_woff2_tables.cljk`, which refuses to write unless the tag
   list has exactly 63 entries and every triplet row satisfies
   `byteCount = 1 + (xBits + yBits) / 8`.
 - **Decoding only.** No WOFF or WOFF2 *encoder* here.
 - **Every failure is an `ex-info` with `:reason`.**
-- **Both runtimes are gated** (`clojure -M:test`, `nbb run-tests.cljs`).
+- **Both runtimes are gated** (`clojure -M:test`, `nbb run-tests.cljk`).
 
 ## Traps
 
@@ -53,5 +53,5 @@ compressed block), `org-iso-opentype` (metadata parse).
 | `woff.woff2` | WOFF2 header, table directory, brotli, `hmtx` transform, sfnt assembly with recomputed checksums |
 | `woff.glyf` | the `glyf`/`loca` transform: seven substreams → glyph records + offsets |
 | `woff.woff2-data` | **generated**: known table tags, triplet encoding |
-| `tools/extract_woff2_tables.cljs` | regenerates that data from the spec HTML |
-| `test/woff/sfnt_compare.cljc` | test-side sfnt/glyf reader for outline comparison |
+| `tools/extract_woff2_tables.cljk` | regenerates that data from the spec HTML |
+| `test/woff/sfnt_compare.cljk` | test-side sfnt/glyf reader for outline comparison |

@@ -55,7 +55,7 @@ jobs:
         run: clojure -M:lint
 
   cljs:
-    name: nbb run-tests.cljs (ClojureScript)
+    name: nbb run-tests.cljk (ClojureScript)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -81,4 +81,4 @@ jobs:
           done
 
       - name: Run the portable suite on ClojureScript
-        run: nbb run-tests.cljs
+        run: nbb run-tests.cljk
