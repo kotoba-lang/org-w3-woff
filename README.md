@@ -68,7 +68,7 @@ The 63 known table tags (§4.1) and the 128-row triplet encoding (§5.2) are
 
 ```sh
 curl -sL https://www.w3.org/TR/WOFF2/ -o /tmp/woff2.html
-nbb tools/extract_woff2_tables.cljk /tmp/woff2.html
+kbb --backend sci tools/extract_woff2_tables.cljk /tmp/woff2.html
 ```
 
 The spec publishes no checksums, so the generator verifies structurally instead:
@@ -80,10 +80,10 @@ the row above. `src/woff/woff2_data.cljk` is generated — do not hand-edit.
 ## Test
 
 ```sh
-clojure -M:test          # JVM: portable suites + conformance against the woff2 tools
-clojure -M:local:test    # …against sibling checkouts
-nbb run-tests.cljk       # ClojureScript: the same WOFF2 decode, recorded fixture
-clojure -M:lint
+kbb -M:test          # JVM: portable suites + conformance against the woff2 tools
+kbb -M:local:test    # …against sibling checkouts
+kbb --backend sci run-tests.cljk       # ClojureScript: the same WOFF2 decode, recorded fixture
+kbb -M:lint
 ```
 
 The portable suite decodes a recorded WOFF2 file and compares it against the

@@ -14,7 +14,7 @@ compressed block), `org-iso-opentype` (metadata parse).
   `byteCount = 1 + (xBits + yBits) / 8`.
 - **Decoding only.** No WOFF or WOFF2 *encoder* here.
 - **Every failure is an `ex-info` with `:reason`.**
-- **Both runtimes are gated** (`clojure -M:test`, `nbb run-tests.cljk`).
+- **Both runtimes are gated** (`kbb -M:test`, `kbb --backend sci run-tests.cljk`).
 
 ## Traps
 
