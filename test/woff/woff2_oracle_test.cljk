@@ -13,13 +13,12 @@
    encoding choices rather than our decoding.
 
    Skipped loudly when the reference tools or a usable font are missing."
-  (:require [clojure.java.io :as io]
-            [clojure.java.shell :as shell]
+  (:require [kotoba.io :as kio] [clojure.java.io :as io]
+            [kotoba.process :as shell]
             [kotoba.test :refer [deftest is testing]]
             [woff.sfnt-compare :as cmp]
             [woff.woff2 :as w2])
-  (:import [java.io File]
-           [java.nio.file Files]))
+  (:import [java.io File]))
 
 (defn- have-tools? []
   (try (and (some? (:out (shell/sh "woff2_compress")))
@@ -27,10 +26,10 @@
        (catch Exception _ false)))
 
 (defn- temp-dir []
-  (.toFile (Files/createTempDirectory "org-w3-woff-" (make-array java.nio.file.attribute.FileAttribute 0))))
+  (kio/temp-dir "org-w3-woff-"))
 
 (defn- rm-rf [^File f] (doseq [c (reverse (file-seq f))] (.delete ^File c)))
-(defn- read-ubytes [^File f] (mapv #(bit-and (int %) 0xff) (Files/readAllBytes (.toPath f))))
+(defn- read-ubytes [^File f] (mapv #(bit-and (int %) 0xff) (kio/read-all-bytes f)))
 
 (def ^:private candidate-fonts
   ["resources/woff/fixtures/noto-lycian.ttf"
