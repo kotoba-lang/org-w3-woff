@@ -2,7 +2,7 @@
   "WOFF1 decode validated by reassembling the wrapped SFNT and checking it
    yields the SAME metadata as the original TTF (fixture wraps noto-lycian.ttf
    with per-table zlib)."
-  (:require [clojure.test :refer [deftest is testing]]
+  (:require [kotoba.test :refer [deftest is testing]]
             [clojure.java.io :as io]
             [woff.core :as woff]
             [opentype.core :as opentype]))

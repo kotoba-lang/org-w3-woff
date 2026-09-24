@@ -16,7 +16,7 @@
             [woff.woff2 :as w2]
             [woff.woff2-data :as data]
             [woff.woff2-fixtures :as fixtures]
-            #?(:clj  [clojure.test :refer [deftest is testing]]
+            #?(:clj  [kotoba.test :refer [deftest is testing]]
                :cljs [cljs.test :refer [deftest is testing]])))
 
 (defn- b64->bytes [s]
