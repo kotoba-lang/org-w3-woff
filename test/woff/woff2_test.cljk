@@ -11,7 +11,7 @@
 
    The wider sweep across system fonts, CFF flavours and composite glyphs lives in
    `woff.woff2-oracle-test`."
-  (:require [woff.glyf :as glyf]
+  (:require [kotoba.bytes :as kbytes] [woff.glyf :as glyf]
             [woff.sfnt-compare :as cmp]
             [woff.woff2 :as w2]
             [woff.woff2-data :as data]
@@ -21,7 +21,7 @@
 
 (defn- b64->bytes [s]
   #?(:clj (mapv #(bit-and (int %) 0xff)
-                (.decode (java.util.Base64/getDecoder) ^String s))
+                (kbytes/base64-decode-bytes ^String s))
      :cljs (let [d (js/atob s)]
              (vec (map-indexed (fn [i _] (.charCodeAt d i)) (repeat (.-length d) nil))))))
 
