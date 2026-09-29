@@ -1,4 +1,4 @@
-# CLAUDE.md — org-w3-woff
+# AGENTS.md — org-w3-woff
 
 WOFF 1.0 and WOFF 2.0 decoding in portable `.cljc`. Dependencies:
 `org-ietf-deflate` (WOFF 1.0's per-table zlib), `org-ietf-brotli` (WOFF2's
